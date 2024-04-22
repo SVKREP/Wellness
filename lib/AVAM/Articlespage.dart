@@ -1,5 +1,41 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Articles Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const Articles(),
+    );
+  }
+}
+
+class Article {
+  final String title;
+  final String content;
+  final List<SubArticle> subArticles;
+
+  Article(
+      {required this.title,
+      required this.content,
+      this.subArticles = const []});
+}
+
+class SubArticle {
+  final String title;
+  final String? content;
+  final String? imagePath;
+  final List? points;
+
+  SubArticle({required this.title, this.content, this.imagePath, this.points});
+}
+
 class Articles extends StatefulWidget {
   const Articles({super.key});
 
@@ -9,97 +45,239 @@ class Articles extends StatefulWidget {
 
 class _ArticlesState extends State<Articles> {
   List<Article> articles = [
-    Article(title: 'Article 1', content: 'When our bodies have mobilized and are responding to threats, it can feel like someone else is in our head,someone who takes actions we would never choose in our right minds. We can stop this feeling and get backto our true selves faster by learning to interrupt the stress response. '),
-    Article(title: 'Article 2', content: 'However, our bodies get overwhelmed when we stay stressed all the time, especially when there are manystressors at the same time.'),
-    Article(title: 'Article 3', content: 'Your body’s stress response is completely normal. It’s your subconscious looking out for you – but this backfireswhen you never get back to a relaxed state3'),
-    Article(title: 'Article 4', content: 'When our bodies have mobilized and are responding to threats, it can feel like someone else is in our head,someone who takes actions we would never choose in our right minds. We can stop this feeling and get backto our true selves faster by learning to interrupt the stress response. '),
-    Article(title: 'Article 5', content: 'However, our bodies get overwhelmed when we stay stressed all the time, especially when there are manystressors at the same time.'),
-    Article(title: 'Article 6', content: 'Your body’s stress response is completely normal. It’s your subconscious looking out for you – but this backfireswhen you never get back to a relaxed state3'),
+    Article(
+      title: 'Wellness',
+      content: 'Content of Wellness',
+      subArticles: [
+        SubArticle(
+            title: 'What is wellness',
+            content: '',
+            imagePath: 'assets/wellness1.1.jpeg'),
+        SubArticle(
+            title: 'Improving Wellness', imagePath: 'assets/wellness1.2.jpeg'),
+        SubArticle(title: 'What are risk factors for wellness', content: '''
+►	A risk factor is something that MAY impact your health and wellness. For example:
+\t\t\t❖	Poor mental health including depression and substance abuse               
+\t\t\t❖	Family stress and conflictual relationships        
+\t\t\t❖	A history of abuse or neglect
+\t\t\t❖	Stressful life situations, such as financial problems, a loved one's death, physical or sexual abuse, violence, etc.      
+\t\t\t❖	Poor physical health 
+\t\t\t❖	Poor school and/or work skills
+\t\t\t❖	Few friends or few healthy relationships
+'''),
+        SubArticle(
+            title: 'What are protective factors for wellness?',
+            content:
+                '''►	A protective factor is something that can help to prevent problems or help you to deal with problems better. 
+            ❖	Access to help and support
+            ❖	Emotional self-regulation
+            ❖ Good coping skills and problem-solving skills
+            ❖	Good peer relationships
+            ❖ Supportive family relationships
+
+                '''),
+        // Add more sub-articles as needed
+      ],
+    ),
+    // ... other articles with their sub-articles
+    Article(title: "Emotions", content: "", subArticles: [
+      SubArticle(title: 'What are emotions?', content: '''
+o	Emotions are reactions to situations and are completely” normal”.
+o Emotional experiences have three components: a subjective experience, a physiological response and a behavioral or expressive response.
+o Basic emotions: anger, fear, surprise, disgust, joy and sadness
+o There is an emotion for every possible human experience
+
+''')
+    ]),
+    Article(title: "Stress", content: "", subArticles: [
+      SubArticle(title: 'What is stress?', content: '''
+►	What is stress? [link to https://www.austintexas.gov/sites/default/files/files/Health/Social%20Services/OVP/Address%20Your%20Stress%20Flyer_4.0_EN_2.0.pdf]
+►	Is it stress or anxiety? [link to https://www.nimh.nih.gov/sites/default/files/documents/health/publications/so-stressed-out-fact-sheet/Im-So-Stressed-Out.pdf]
+►	Learn more about stress through these videos:
+  o	https://www.youtube.com/watch?v=CZTc8_FwHGM&authuser=0
+  o	https://www.youtube.com/watch?v=WuyPuH9ojCE&authuser=0
+''')
+    ]),
+    Article(title: "Relaxation", content: "", subArticles: [
+      SubArticle(title: 'What is relaxation?', content: '''
+►	Relaxation practices can reduce stress symptoms and help you enjoy a better quality of life. 
+►	Relaxation is a process that decreases the effects of stress on your mind and body. 
+►	Relaxation techniques may include:
+►	Deep breathing [link to the breathing links]
+►	Massage
+►	Meditation
+►	Yoga [link to the yoga and stretches link]
+'''),
+      SubArticle(title: 'Deep breating', content: '''
+''')
+    ]),
+    Article(title: "Mindfulness", content: "", subArticles: [
+      SubArticle(title: 'What is mindfulness?', content: '''
+►	Mindfulness is explained as the act of being present and fully engaged with whatever is going on in that moment — free from distraction or judgment, and aware of our thoughts and feelings without getting caught up in them. 
+►	Mindfulness allows us to 
+►	Connect with the environment 
+►	Connect with ourselves – mind/body/heart 
+
+'''),
+      SubArticle(title: 'Deep breating', content: '''
+
+''')
+    ])
   ];
 
   int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Articles'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.png'),
-            alignment: Alignment.center,
-            fit: BoxFit.fill,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [Colors.blue, Colors.green],
           ),
         ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Column(
-              children: [
-                // Your other widgets can go here
-
-                SizedBox(height: 20,),
-                Image(
-                    height: 180,
-                    width: 180,
-                    image: AssetImage('assets/logo.png')
-                ),
-
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: articles.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ExpansionTile(
-                        title: Text(articles[index].title,style: TextStyle(fontSize: 50,color: Colors.white,fontWeight: FontWeight.bold,fontFamily: 'Qwigley',),),
-                        onExpansionChanged: (isExpanded) {
-                          setState(() {
-                            selectedIndex = isExpanded ? index : -1;
-                          });
-                        },
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-
-                              color: Colors.black.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(20.0),
-                              border: Border.all(
-                                color: Colors.white.withOpacity(0.9),
-                                width: 3.0,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 10,
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-
-                            padding: EdgeInsets.all(16.0),
-
-                            child: Text(articles[index].content, style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, ),),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
+        child: ListView.builder(
+          itemCount: articles.length,
+          itemBuilder: (context, index) {
+            return ArticleTile(
+              article: articles[index],
+              isSelected: selectedIndex == index,
+              onExpansionChanged: (isExpanded) {
+                setState(() {
+                  selectedIndex = isExpanded ? index : -1;
+                });
+              },
+            );
+          },
         ),
       ),
     );
   }
 }
 
-class Article {
-  final String title;
-  final String content;
+class ArticleTile extends StatelessWidget {
+  final Article article;
+  final bool isSelected;
+  final Function(bool) onExpansionChanged;
 
-  Article({required this.title, required this.content});
+  const ArticleTile({
+    Key? key,
+    required this.article,
+    required this.isSelected,
+    required this.onExpansionChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color: isSelected ? Colors.tealAccent[400]! : Colors.white,
+          width: 3,
+        ),
+      ),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          backgroundColor: isSelected
+              ? Colors.tealAccent[400]!.withOpacity(0.3)
+              : Colors.white.withOpacity(0.3),
+          title: Text(
+            article.title,
+            style: TextStyle(
+              fontSize: 18,
+              color: isSelected ? Colors.yellowAccent[400] : Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onExpansionChanged: onExpansionChanged,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                article.content,
+                style: TextStyle(fontSize: 16, color: Colors.black),
+              ),
+            ),
+            ...article.subArticles
+                .map((subArticle) => SubArticleTile(subArticle: subArticle))
+                .toList(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SubArticleTile extends StatefulWidget {
+  final SubArticle subArticle;
+
+  const SubArticleTile({Key? key, required this.subArticle}) : super(key: key);
+
+  @override
+  _SubArticleTileState createState() => _SubArticleTileState();
+}
+
+class _SubArticleTileState extends State<SubArticleTile> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white.withOpacity(0.7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 4,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              widget.subArticle.title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            trailing: IconButton(
+              icon: Icon(isExpanded ? Icons.expand_less : Icons.expand_more),
+              onPressed: () {
+                setState(() {
+                  isExpanded = !isExpanded;
+                });
+              },
+            ),
+          ),
+          if (isExpanded)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: widget.subArticle.imagePath != null
+                  ? Image.asset(widget.subArticle.imagePath!)
+                  : Text(
+                      widget.subArticle.content ?? '',
+                      style: const TextStyle(fontSize: 14, color: Colors.black54),
+                    ),
+            ),
+        ],
+      ),
+    );
+  }
 }
