@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wellness/Account_Details_update.dart';
 
-import 'package:wellness/AVAM/Activities.dart';
-import 'package:wellness/AVAM/Articlespage.dart';
-import 'package:wellness/AVAM/Videopage.dart';
-import 'package:wellness/AVAM/Music.dart';
 import 'package:wellness/AVAM/Profile.dart';
+import 'package:wellness/AVAM/Activities.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -16,14 +13,14 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   @override
-  int _selectedIndex =2 ;
+  int _selectedIndex =0 ;
 
   final List<Widget> _pages = [
-    Articles(),
-    Video(),
+    //Articles(),
+    //Video(),
     Profilepage(),
+    //Activities(),
     Activities(),
-    Music(),
   ];
 
   Widget build(BuildContext context) {
@@ -40,21 +37,21 @@ class _ProfileState extends State<Profile> {
                 },
 
                 items: [
-                          BottomNavigationBarItem(icon: Icon(MyCustomIcons.article_outlined, size: 40,), label: 'Articles', backgroundColor:  Colors.cyan.withOpacity(0.5),),
-                          BottomNavigationBarItem(icon: Icon(MyCustomIcons.featured_video_outlined, size: 40,), label: 'Video', backgroundColor: Colors.tealAccent.withOpacity(0.5),),
-                          BottomNavigationBarItem(icon: Icon(MyCustomIcons.account_circle, size: 40,), label: 'Profile', backgroundColor: Colors.white.withOpacity(0.5),),
-                          BottomNavigationBarItem(icon: Icon(MyCustomIcons.checklist_sharp, size: 40,), label: 'Activities', backgroundColor: Colors.tealAccent.withOpacity(0.5),),
-                          BottomNavigationBarItem(icon: Icon(MyCustomIcons.library_music_outlined, size: 40,), label: 'Music', backgroundColor: Colors.cyan.withOpacity(0.5),),
+                          //BottomNavigationBarItem(icon: Icon(MyCustomIcons.article_outlined, size: 40,), label: 'Articles', backgroundColor:  Colors.cyan.withOpacity(0.5),),
+                          //BottomNavigationBarItem(icon: Icon(MyCustomIcons.featured_video_outlined, size: 40,), label: 'Video', backgroundColor: Colors.tealAccent.withOpacity(0.5),),
+                          BottomNavigationBarItem(icon: Icon(MyCustomIcons.account_circle, size: 40,), label: 'Profile', backgroundColor: Colors.white.withOpacity(1),),
+                         //BottomNavigationBarItem(icon: Icon(MyCustomIcons.checklist_sharp, size: 40,), label: 'Activities', backgroundColor: Colors.tealAccent.withOpacity(0.5),),
+                         BottomNavigationBarItem(icon: Icon(MyCustomIcons.checklist_sharp, size: 40,), label: 'Activities', backgroundColor: Colors.white.withOpacity(1),),
                        ],
 
-                selectedItemColor: Colors.cyan,
+                selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.black,
-                backgroundColor: Colors.cyan,
+                backgroundColor: Colors.cyan.withOpacity(1),
                 elevation: 100.0,
                 selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                 showSelectedLabels: true,
                 showUnselectedLabels: true,
-                selectedIconTheme: IconThemeData(color: Colors.cyan),
+                selectedIconTheme: IconThemeData(color: Colors.white),
                 unselectedIconTheme: IconThemeData(color: Colors.black),
 
               ),
