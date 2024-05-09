@@ -1,9 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:wellness/Registrationpage.dart';
 import 'package:wellness/Profilepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+
+class Login extends StatefulWidget {
+
+
+  final VoidCallback sRP;
+  const Login({super.key,required this.sRP});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+  final loginid = TextEditingController();
+  final lpassword = TextEditingController();
+
+  Future signIn() async
+  {
+    print('Successfully signed in');
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: loginid.text.trim(),
+      password: lpassword.text.trim(),
+    );
+  }
+  @override
+  void dispose()
+  {
+    loginid.dispose();
+    lpassword.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +83,7 @@ class Login extends StatelessWidget {
                 horizontal: 20,
               ),
               child: TextField(
+                controller: loginid,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -94,6 +126,7 @@ class Login extends StatelessWidget {
                 children: <Widget>[
 
                   TextField(
+                    controller: lpassword,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -143,30 +176,24 @@ class Login extends StatelessWidget {
 ///////////////////////////
 
 //////////////////////////
-            TextButton(
-              onPressed: () {
-                Navigator.push(context, new MaterialPageRoute(builder: (context) => Profile()));
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(
-                      color: Colors.white, // Border color
-                      width: 2.0, // Border width
-                    ),
+            GestureDetector(
+              onTap: signIn,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  border: Border.all(
+                    color: Colors.white, // Border color
+                    width: 2.0, // Border width
                   ),
+                  color: Colors.black.withOpacity(0),
                 ),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(0)),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                ),
-              ),
-              child: Text(
-                'LOGIN',
-                style: TextStyle(
-                  fontSize: 17,
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                child: Text(
+                  'LOGIN',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -176,26 +203,18 @@ class Login extends StatelessWidget {
               height: 40,
             ),
 
-
 //////////////////////////////////
-            TextButton(
-              onPressed: () {
-                Navigator.push(context, new MaterialPageRoute(builder: (context) => Register()));
-              },
-
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black.withOpacity(0)),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                ),
-              ),
-              child: Text(
-                'Registration for new user',
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Colors.white,
-                  fontSize: 17,
+            GestureDetector(
+              onTap: widget.sRP,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                child: Text(
+                  'Registration for new user',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.white,
+                    fontSize: 17,
+                  ),
                 ),
               ),
             ),

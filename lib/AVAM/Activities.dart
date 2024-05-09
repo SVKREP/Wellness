@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:wellness/AVAM/ActivityPages/exerciseandyoga.dart';
-import 'package:wellness/AVAM/ActivityPages/deepbreathing.dart';
-
-import 'package:wellness/AVAM/ActivityPages/QandA.dart';
-
-import 'package:wellness/AVAM/ActivityPages/visualsenses.dart';
-
+import 'package:wellness/Account_Details_update.dart';
+import 'package:wellness/AVAM/AP/Wellness.dart';
+import 'package:wellness/AVAM/AP/emotions.dart';
+import 'package:wellness/AVAM/AP/sleep.dart';
+import 'package:wellness/AVAM/AP/mindfull.dart';
+import 'package:wellness/AVAM/AP/relaxation.dart';
+import 'package:wellness/AVAM/AP/stress.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Activities extends StatefulWidget {
   const Activities({super.key});
@@ -17,7 +19,7 @@ class Activities extends StatefulWidget {
 class _ActivitiesState extends State<Activities> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
 
       body: Container(
         height: double.infinity,
@@ -30,151 +32,386 @@ class _ActivitiesState extends State<Activities> {
           ),
         ),
 
+        child: SingleChildScrollView(
+          child:  Column(
+            //mainAxisAlignment: MainAxisAlignment.start, // Customize as needed
+            // crossAxisAlignment: CrossAxisAlignment.center, // Customize as needed
+            children: <Widget>[
+              SizedBox(height: 10,),
+              //////////////////////////////////////////////////////////////
+              Image(
+                  height: 180,
+                  width: 180,
+                  image: AssetImage('assets/logo.png')
+              ),
+              //////////////////////////////////////////////////////////
+              SizedBox(height: 5,),
+              ///////////////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////////////////
+              SizedBox(height: 10,),
+              //////////////////////////////////////////////////////////////////////
+              Container(
+                alignment: Alignment.center,
+                height: 366,
+                width: 340,
 
-      child: SingleChildScrollView(
+                decoration: BoxDecoration(
+                  color: Colors.tealAccent.withOpacity(0),
+                  borderRadius: BorderRadius.circular(23.0),
+                  border: Border.all(
+                    color: Colors.tealAccent.withOpacity(0.2),
+                    width: 3.0,
+                  ),
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            SizedBox(
-              height: 60,
-            ),
-
-            Image(
-                height: 200,
-                width: 200,
-                image: AssetImage('assets/logo.png')
-            ),
-
-
-            SizedBox(
-              height: 10,
-            ),
-
-            Container(
-
-              height: 60,
-              width: 290,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white, // Border color
-                  width: 3.0, // Border width
                 ),
-                borderRadius: BorderRadius.circular(20),
-              ),
-               child: TextButton(
-                    onPressed: () {
-                      Navigator.push(context, new MaterialPageRoute(builder: (context) => QA()));
-                    },
 
-                    child: Text(
-                      'Quiz and Assignments',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ) ,
-                    )
-               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
+                child: Column(
 
-            Container(
+                  children: <Widget>[
 
-              height: 60,
-              width: 290,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white, // Border color
-                  width: 3.0, // Border width
+                    Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan.withOpacity(0.3),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        ),
+                        border: Border.all(
+                          color: Colors.tealAccent.withOpacity(0.2),
+                          width: 3.0,
+                        ),
+                      ),
+
+                      child: TextButton(
+
+                        onPressed:(){
+                          Navigator.push(context, new MaterialPageRoute(builder: (context) => Wellness()));
+                        },
+
+                        child: Row(
+
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+
+                          children: <Widget>[
+
+                            SizedBox(
+                              width: 20,
+                            ),
+
+                            Icon(
+                              MyCustomIcons.circle_sharp, // Use the custom IconData
+                              size: 20.0, // Adjust the size as needed
+                              color: Colors.white, // Adjust the color as needed
+                            ),
+
+                            SizedBox(
+                              width: 40,
+                            ),
+
+                            Text(
+                              'Wellness',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ),
+                    ),
+
+                    Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.tealAccent.withOpacity(0.3),
+
+                        border: Border.all(
+                          color: Colors.tealAccent.withOpacity(0.2),
+                          width: 3.0,
+                        ),
+                      ),
+
+                      child: TextButton(
+
+                        onPressed:(){Navigator.push(context, new MaterialPageRoute(builder: (context) => Emotions()));},
+
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 20,
+                            ),
+
+                            Icon(
+                              MyCustomIcons.circle_sharp, // Use the custom IconData
+                              size: 20.0, // Adjust the size as needed
+                              color: Colors.white, // Adjust the color as needed
+                            ),
+
+
+                            SizedBox(
+                              width: 40,
+                            ),
+
+                            Text(
+                              'Emotions',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ),
+
+                    ),
+
+                    Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan.withOpacity(0.3),
+
+                        border: Border.all(
+                          color: Colors.tealAccent.withOpacity(0.2),
+                          width: 3.0,
+                        ),
+                      ),
+                      child: TextButton(
+
+                        onPressed:(){Navigator.push(context, new MaterialPageRoute(builder: (context) => Stress()));},
+
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+
+                            SizedBox(
+                              width: 20,
+                            ),
+
+                            Icon(
+                              MyCustomIcons.circle_sharp, // Use the custom IconData
+                              size: 20.0, // Adjust the size as needed
+                              color: Colors.white, // Adjust the color as needed
+                            ),
+
+
+                            SizedBox(
+                              width: 40,
+                            ),
+
+                            Text(
+                              'Stress',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ),
+
+
+
+                    ),
+
+                    Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.tealAccent.withOpacity(0.3),
+
+                        border: Border.all(
+                          color: Colors.tealAccent.withOpacity(0.2),
+                          width: 3.0,
+                        ),
+                      ),
+
+                      child:TextButton(
+
+                        onPressed:(){Navigator.push(context, new MaterialPageRoute(builder: (context) => relaxation()));},
+
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+
+                            SizedBox(
+                              width: 20,
+                            ),
+
+                            Icon(
+                              MyCustomIcons.circle_sharp, // Use the custom IconData
+                              size: 20.0, // Adjust the size as needed
+                              color: Colors.white, // Adjust the color as needed
+                            ),
+
+
+                            SizedBox(
+                              width: 40,
+                            ),
+
+                            Text(
+                              'Relaxation',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ),
+
+                    ),
+
+                    Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan.withOpacity(0.3),
+
+                        border: Border.all(
+                          color: Colors.tealAccent.withOpacity(0.2),
+                          width: 3.0,
+                        ),
+                      ),
+
+
+                      child:TextButton(
+
+                        onPressed:(){Navigator.push(context, new MaterialPageRoute(builder: (context) => mindfullness()));},
+
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+
+                            SizedBox(
+                              width: 20,
+                            ),
+
+                            Icon(
+                              MyCustomIcons.circle_sharp, // Use the custom IconData
+                              size: 20.0, // Adjust the size as needed
+                              color: Colors.white, // Adjust the color as needed
+                            ),
+
+
+                            SizedBox(
+                              width: 40,
+                            ),
+
+                            Text(
+                              'Mindfulness',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ),
+
+                    ),
+
+                    Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.tealAccent.withOpacity(0.3),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20.0),
+                          bottomRight: Radius.circular(20.0),
+                        ),
+                        border: Border.all(
+                          color: Colors.tealAccent.withOpacity(0.2),
+                          width: 3.0,
+                        ),
+                      ),
+                      child:TextButton(
+
+                        onPressed:(){Navigator.push(context, new MaterialPageRoute(builder: (context) => sleep()));},
+
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+
+
+                            SizedBox(
+                              width: 20,
+                            ),
+
+                            Icon(
+                              MyCustomIcons.circle_sharp, // Use the custom IconData
+                              size: 20.0, // Adjust the size as needed
+                              color: Colors.white, // Adjust the color as needed
+                            ),
+
+
+                            SizedBox(
+                              width: 40,
+                            ),
+
+                            Text(
+                              'Sleep',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ),
+
+
+                    ),
+
+
+                  ],
                 ),
-                borderRadius: BorderRadius.circular(20),
+
+
+
+
               ),
-              child: TextButton(
-                  onPressed: () { Navigator.push(context, new MaterialPageRoute(builder: (context) => DB()));},
 
-                  child: Text(
-                    'Deep Breathing',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ) ,
-                  )
-              ),
-            ),
-
-            SizedBox(
-              height: 10,
-            ),
-
-            Container(
-
-              height: 60,
-              width: 290,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white, // Border color
-                  width: 3.0, // Border width
-                ),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) => EY()));
-                  },
-
-                  child: Text(
-                    'Exercise and Yoga',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ) ,
-                  )
-              ),
-            ),
-
-            SizedBox(
-              height: 10,
-            ),
-
-            Container(
-
-              height: 60,
-              width: 290,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white, // Border color
-                  width: 3.0, // Border width
-                ),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) => VS()));
-                  },
-                  child: Text(
-                    'Visualization Senses',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ) ,
-                  )
-              ),
-            ),
-
-          ],
-
+            ],
+          ),
         ),
-      ),
 
       ),
+
     );
   }
+}
+
+class MyCustomIcons {
+
+  static const IconData account_circle_outlined = IconData(0xee35, fontFamily: 'MaterialIcons');
+  static const IconData circle_notifications_outlined = IconData(0xef52, fontFamily: 'MaterialIcons');
+  static const IconData contact_support_outlined = IconData(0xef7c, fontFamily: 'MaterialIcons');
+  static const IconData comment_outlined = IconData(0xef6e, fontFamily: 'MaterialIcons');
+  static const IconData power_settings_new = IconData(0xe4e3, fontFamily: 'MaterialIcons');
+  static const IconData settings = IconData(0xe57f, fontFamily: 'MaterialIcons');
+  static const IconData circle_sharp = IconData(0xe861, fontFamily: 'MaterialIcons');
+
+  static const IconData checklist_sharp = IconData(0xe859, fontFamily: 'MaterialIcons');
+  static const IconData library_music_outlined = IconData(0xf161, fontFamily: 'MaterialIcons');
+  static const IconData article_outlined = IconData(0xee93, fontFamily: 'MaterialIcons');
+  static const IconData featured_video_outlined = IconData(0xf04d, fontFamily: 'MaterialIcons', matchTextDirection: true);
+  static const IconData account_circle = IconData(0xe043, fontFamily: 'MaterialIcons');
+
 }

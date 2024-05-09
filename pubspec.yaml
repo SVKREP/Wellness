@@ -39,6 +39,10 @@ dependencies:
   appinio_video_player: ^1.2.2
   chewie: ^1.7.4
   just_audio: ^0.9.36
+  firebase_auth: ^4.12.1
+  firebase_core: ^2.21.0
+  cloud_firestore: ^4.12.2
+
 
 dev_dependencies:
   flutter_test:
